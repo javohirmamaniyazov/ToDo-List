@@ -1,0 +1,104 @@
+.containerr {
+    margin-top: 100px;
+}
+
+.todoList {
+    width: 70%;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.formTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.formInput {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-size: 16px;
+}
+
+.formButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.formButton:hover {
+    background-color: #023e8a;
+}
+
+.todoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.todoItem:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.todoItemName {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.todoItemDescription {
+    color: #555;
+    font-size: 16px;
+}
+
+.deleteButton {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #e53935;
+}
+
+.sidebar {
+    width: 10%;
+    display: flex;
+    float: left;
+    position: fixed;
+    height: 100%;
+    border-right: 1px solid #dae3e9;
+    padding-top: 2em;
+}
+
+.main-content {
+    display: flex;
+    float: left;
+}
+
+.patrul{
+    margin-left: 75%;
+}
