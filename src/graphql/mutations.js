@@ -9,9 +9,11 @@ export const createTodo = /* GraphQL */ `
     createTodo(input: $input, condition: $condition) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -23,9 +25,11 @@ export const updateTodo = /* GraphQL */ `
     updateTodo(input: $input, condition: $condition) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -37,9 +41,11 @@ export const deleteTodo = /* GraphQL */ `
     deleteTodo(input: $input, condition: $condition) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;

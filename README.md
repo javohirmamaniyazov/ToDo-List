@@ -1,19 +1,8 @@
-***Simple To Do list***
-
-### Demo
-
-`https://javas-to-do-list.netlify.app/`
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-
-For the installing node_modules:
-
-### `npm install` 
 
 In the project directory, you can run:
 

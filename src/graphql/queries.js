@@ -6,9 +6,11 @@ export const getTodo = /* GraphQL */ `
     getTodo(id: $id) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -22,11 +24,14 @@ export const listTodos = /* GraphQL */ `
       items {
         id
         name
-        description
+        Description
+        City
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;

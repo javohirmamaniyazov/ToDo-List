@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "avazbekyelp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-avazbekyelp-dev-75138-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/b63e122886cee0d137dac5213315cdac0f13c756"
+}

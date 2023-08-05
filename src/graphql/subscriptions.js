@@ -6,9 +6,11 @@ export const onCreateTodo = /* GraphQL */ `
     onCreateTodo(filter: $filter) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -17,9 +19,11 @@ export const onUpdateTodo = /* GraphQL */ `
     onUpdateTodo(filter: $filter) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -28,9 +32,11 @@ export const onDeleteTodo = /* GraphQL */ `
     onDeleteTodo(filter: $filter) {
       id
       name
-      description
+      Description
+      City
       createdAt
       updatedAt
+      __typename
     }
   }
 `;

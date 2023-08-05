@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "avazbekyelp",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-08-05T03:24:14.010Z"
+}
