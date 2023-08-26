@@ -6,6 +6,10 @@ import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import awsExports from "./aws-exports";
+import CreateRestaurantForm from './Components/CreateRestaurantForm/CreateRestaurantForm';
+import RestaurantList from './Components/Restaurant/RestaurantList';
+import Navbar from './Components/Navbar/Navbar';
+import './App.css'
 Amplify.configure(awsExports);
 
 const initialState = { name: '', description: '', city: '' };
@@ -69,305 +73,245 @@ const App = ({ signOut, user }) => {
 
   return (
     <div>
-      {/* Navbar */}
-      <nav style={styles.navbar}>
-        <div style={styles.navbarItems}>
-          <span style={styles.projectName}>
-            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/930px-Yelp_Logo.svg.png?20210803213252' width="150px" height="65px" style={{ marginLeft: '35px'}}/>
-          </span>
-          <Button onClick={() => setShowCreateRestaurant(true)} style={styles.createRestaurantButton}>
-            Create Restaurant
-          </Button>
-          <div style={styles.userProfileDropdown}>
-            <Button onClick={toggleDropdown} style={styles.userNameButton}>
-              {user.username} ▼
-            </Button>
-            {showDropdown && (
-              <div style={styles.dropdownContent}>
-                <div style={styles.dropdownItem} onClick={signOut}>
-                  Logout
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
-
-      {/* Create Restaurant Form */}
-      {showCreateRestaurant && (
-        <div style={styles.createRestaurantFormOverlay}>
-          <div style={styles.createRestaurantForm}>
-            <button style={styles.closeButton} onClick={() => setShowCreateRestaurant(false)}>
-              X
-            </button>
-            <h2>Create Restaurant</h2>
-            <input
-              onChange={(event) => setInput('name', event.target.value)}
-              style={styles.input}
-              value={formState.name}
-              placeholder="Name"
-            />
-            <input
-              onChange={(event) => setInput('description', event.target.value)}
-              style={styles.input}
-              value={formState.description}
-              placeholder="Description"
-            />
-            <input
-              onChange={(event) => setInput('city', event.target.value)}
-              style={styles.input}
-              value={formState.city}
-              placeholder="City"
-            />
-            <Button onClick={addTodo} style={styles.createRestaurantFormButton}>
-              Create Restaurant
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Header Section */}
-      <header style={styles.header}>
+      <Navbar
+        user={user}
+        signOut={signOut}
+        toggleCreateForm={() => setShowCreateRestaurant(true)}
+        toggleDropdown={toggleDropdown}
+        showDropdown={showDropdown}
+      />
+      {/* Rest of your JSX */}
+      <header className="header">
         <h2>Nice Restaurants List</h2>
-        <table style={styles.restaurantTable}>
-          <thead>
-            <tr style={{backgroundColor: "#DCDCDC",}}>
-              <th style={styles.tableHeader}>Restaurant Name</th>
-              <th style={styles.tableHeader}>Description</th>
-              <th style={styles.tableHeader}>Location City</th>
-            </tr>
-          </thead>
-          <tbody>
-            {todos.map((todo) => (
-              <tr key={todo.id} style={styles.restaurantRow}>
-                <td style={styles.tableData}>{todo.name}</td>
-                <td style={styles.tableData}>{todo.description}</td>
-                <td style={styles.tableData}>{todo.city}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <RestaurantList todos={todos} />
       </header>
+      {showCreateRestaurant && (
+        <CreateRestaurantForm
+          formState={formState}
+          setInput={setInput}
+          addTodo={addTodo}
+        />
+      )}
     </div>
   );
 };
 
-const styles = {
-  navbar: {
-    backgroundColor: '#333',
-    color: '#fff',
-    padding: '3px 20px',
-  },
-  navbarItems: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  projectName: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-  },
-  createRestaurantButton: {
-    backgroundColor: 'black',
-    color: 'white',
-    fontSize: '18px',
-    padding: '8px 16px',
-    borderRadius: '4px',
-  },
-  userProfileDropdown: {
-    position: 'relative',
-    display: 'inline-block',
-  },
-  userName: {
-    cursor: 'pointer',
-    fontSize: '18px',
-  },
-  dropdownContent: {
-    display: 'none',
-    position: 'absolute',
-    backgroundColor: '#f9f9f9',
-    minWidth: '160px',
-    boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
-    zIndex: '1',
-    right: '0',
-  },
-  dropdownItem: {
-    cursor: 'pointer',
-    padding: '12px 16px',
-    textDecoration: 'none',
-    display: 'block',
-    color: 'black',
-    ':hover': {
-      backgroundColor: '#f1f1f1',
-    },
-  },
-  createRestaurantFormOverlay: {
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  createRestaurantForm: {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-  },
-  input: {
-    border: 'none',
-    backgroundColor: '#ddd',
-    marginBottom: '10px',
-    padding: '8px',
-    fontSize: '18px',
-    width: '100%',
-  },
-  createRestaurantFormButton: {
-    backgroundColor: 'black',
-    color: 'white',
-    fontSize: '18px',
-    padding: '12px 24px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    float: 'right',
-  },
-  header: {
-    padding: '20px',
-  },
-  restaurantCard: {
-    marginBottom: '15px',
-    border: '1px solid #ccc',
-    padding: '10px',
-    borderRadius: '8px',
-  },
-  restaurantName: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-  },
-  restaurantDescription: {
-    marginBottom: '5px',
-  },
-  restaurantCity: {
-    color: '#666',
-  },
+// const styles = {
+//   navbar: {
+//     backgroundColor: '#333',
+//     color: '#fff',
+//     padding: '3px 20px',
+//   },
+//   navbarItems: {
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//   },
+//   projectName: {
+//     fontSize: '24px',
+//     fontWeight: 'bold',
+//   },
+//   createRestaurantButton: {
+//     backgroundColor: 'black',
+//     color: 'white',
+//     fontSize: '18px',
+//     padding: '8px 16px',
+//     borderRadius: '4px',
+//   },
+//   userProfileDropdown: {
+//     position: 'relative',
+//     display: 'inline-block',
+//   },
+//   userName: {
+//     cursor: 'pointer',
+//     fontSize: '18px',
+//   },
+//   dropdownContent: {
+//     display: 'none',
+//     position: 'absolute',
+//     backgroundColor: '#f9f9f9',
+//     minWidth: '160px',
+//     boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+//     zIndex: '1',
+//     right: '0',
+//   },
+//   dropdownItem: {
+//     cursor: 'pointer',
+//     padding: '12px 16px',
+//     textDecoration: 'none',
+//     display: 'block',
+//     color: 'black',
+//     ':hover': {
+//       backgroundColor: '#f1f1f1',
+//     },
+//   },
+//   createRestaurantFormOverlay: {
+//     position: 'fixed',
+//     top: '0',
+//     left: '0',
+//     width: '100%',
+//     height: '100%',
+//     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   createRestaurantForm: {
+//     backgroundColor: '#fff',
+//     padding: '20px',
+//     borderRadius: '8px',
+//   },
+//   input: {
+//     border: 'none',
+//     backgroundColor: '#ddd',
+//     marginBottom: '10px',
+//     padding: '8px',
+//     fontSize: '18px',
+//     width: '100%',
+//   },
+//   createRestaurantFormButton: {
+//     backgroundColor: 'black',
+//     color: 'white',
+//     fontSize: '18px',
+//     padding: '12px 24px',
+//     borderRadius: '4px',
+//     cursor: 'pointer',
+//     float: 'right',
+//   },
+//   header: {
+//     padding: '20px',
+//   },
+//   restaurantCard: {
+//     marginBottom: '15px',
+//     border: '1px solid #ccc',
+//     padding: '10px',
+//     borderRadius: '8px',
+//   },
+//   restaurantName: {
+//     fontSize: '20px',
+//     fontWeight: 'bold',
+//   },
+//   restaurantDescription: {
+//     marginBottom: '5px',
+//   },
+//   restaurantCity: {
+//     color: '#666',
+//   },
 
-  restaurantTable: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: '15px',
-  },
-  restaurantRow: {
-    borderBottom: '1px solid #ccc',
-  },
-  header: {
-    padding: '20px',
-  },
-  restaurantCard: {
-    marginBottom: '15px',
-    border: '1px solid #ccc',
-    padding: '10px',
-    borderRadius: '8px',
-  },
-  restaurantName: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-  },
-  restaurantDescription: {
-    marginBottom: '5px',
-  },
-  restaurantCity: {
-    color: '#666',
-  },
+//   restaurantTable: {
+//     width: '100%',
+//     borderCollapse: 'collapse',
+//     marginTop: '15px',
+//   },
+//   restaurantRow: {
+//     borderBottom: '1px solid #ccc',
+//   },
+//   header: {
+//     padding: '20px',
+//   },
+//   restaurantCard: {
+//     marginBottom: '15px',
+//     border: '1px solid #ccc',
+//     padding: '10px',
+//     borderRadius: '8px',
+//   },
+//   restaurantName: {
+//     fontSize: '20px',
+//     fontWeight: 'bold',
+//   },
+//   restaurantDescription: {
+//     marginBottom: '5px',
+//   },
+//   restaurantCity: {
+//     color: '#666',
+//   },
 
-  restaurantTable: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: '15px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
-  tableHeader: {
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    padding: '10px',
-    borderBottom: '1px solid #ccc',
-  },
-  restaurantRow: {
-    borderBottom: '1px solid #ccc',
-  },
-  tableData: {
-    padding: '10px',
-    textAlign: 'center',
-    fontSize: '16px',
-  },
+//   restaurantTable: {
+//     width: '100%',
+//     borderCollapse: 'collapse',
+//     marginTop: '15px',
+//     border: '1px solid #ccc',
+//     borderRadius: '8px',
+//     overflow: 'hidden',
+//     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//   },
+//   tableHeader: {
+//     fontWeight: 'bold',
+//     textTransform: 'uppercase',
+//     padding: '10px',
+//     borderBottom: '1px solid #ccc',
+//   },
+//   restaurantRow: {
+//     borderBottom: '1px solid #ccc',
+//   },
+//   tableData: {
+//     padding: '10px',
+//     textAlign: 'center',
+//     fontSize: '16px',
+//   },
 
-  restaurantTable: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: '15px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
-  tableHeader: {
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    padding: '10px',
-    border: '1px solid #ccc',
-  },
-  restaurantRow: {
-    borderBottom: '1px solid #ccc',
-  },
-  tableData: {
-    padding: '10px',
-    textAlign: 'center',
-    fontSize: '16px',
-    border: '1px solid #ccc',
-  },
-  userProfileDropdown: {
-    position: 'relative',
-    display: 'inline-block',
-    marginLeft: '10px',
-  },
-  userNameButton: {
-    backgroundColor: 'transparent',
-    color: '#eee',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    border: 'none',
-    cursor: 'pointer',
-    outline: 'none',
-  },
-  dropdownContent: {
-    marginTop: '21px',
-    position: 'absolute',
-    top: '100%',
-    right: '0',
-    backgroundColor: '#333',
-    borderRadius: '8px 0 8px 8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    zIndex: '1',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  dropdownItem: {
-    padding: '10px 15px',
-    cursor: 'pointer',
-    color: '#eee',
-    fontWeight: 'bold',
-    marginRight: '55px'
-  },
+//   restaurantTable: {
+//     width: '100%',
+//     borderCollapse: 'collapse',
+//     marginTop: '15px',
+//     border: '1px solid #ccc',
+//     borderRadius: '8px',
+//     overflow: 'hidden',
+//     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//   },
+//   tableHeader: {
+//     fontWeight: 'bold',
+//     textTransform: 'uppercase',
+//     padding: '10px',
+//     border: '1px solid #ccc',
+//   },
+//   restaurantRow: {
+//     borderBottom: '1px solid #ccc',
+//   },
+//   tableData: {
+//     padding: '10px',
+//     textAlign: 'center',
+//     fontSize: '16px',
+//     border: '1px solid #ccc',
+//   },
+//   userProfileDropdown: {
+//     position: 'relative',
+//     display: 'inline-block',
+//     marginLeft: '10px',
+//   },
+//   userNameButton: {
+//     backgroundColor: 'transparent',
+//     color: '#eee',
+//     fontSize: '16px',
+//     fontWeight: 'bold',
+//     border: 'none',
+//     cursor: 'pointer',
+//     outline: 'none',
+//   },
+//   dropdownContent: {
+//     marginTop: '21px',
+//     position: 'absolute',
+//     top: '100%',
+//     right: '0',
+//     backgroundColor: '#333',
+//     borderRadius: '8px 0 8px 8px',
+//     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//     zIndex: '1',
+//     display: 'flex',
+//     flexDirection: 'column',
+//   },
+//   dropdownItem: {
+//     padding: '10px 15px',
+//     cursor: 'pointer',
+//     color: '#eee',
+//     fontWeight: 'bold',
+//     marginRight: '55px'
+//   },
 
-  closeButton: {
-    border: 'none',
-    backgroundColor: "#fff"
-  }
-};
+//   closeButton: {
+//     border: 'none',
+//     backgroundColor: "#fff"
+//   }
+// };
 
 export default withAuthenticator(App);
